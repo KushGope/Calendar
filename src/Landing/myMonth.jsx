@@ -20,6 +20,8 @@ const WEEKDAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 export default function MyMonth() {
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
+  const [doubleClicked, setClicked] = useState(false);
+  const [dClickedDay, setDay] = useState(0);
 
   const isLeapYear = (year) => {
     return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
@@ -83,6 +85,15 @@ export default function MyMonth() {
     }
   };
 
+  const isToday = (dd, mm, yyyy) => {
+    const temp = new Date();
+    return (
+      temp.getDate() === dd &&
+      temp.getMonth() + 1 === mm &&
+      temp.getFullYear() === yyyy
+    );
+  };
+
   return (
     <div className="calendar-container">
       <div className="calendar-wrapper">
@@ -112,7 +123,18 @@ export default function MyMonth() {
             {daysGrid.map((day, idx) => (
               <div
                 key={idx}
-                className={`day-cell ${day ? "active-day" : "empty-pad"}`}
+                onDoubleClick={() => {
+                  setClicked(!doubleClicked);
+                  setDay(day);
+                }}
+                // className={`day-cell ${day ? "active-day" : "empty-pad"}`}
+                className={`day-cell ${day ? "active-day" : "empty-pad"} ${
+                  day && isToday(day, currentMonth + 1, currentYear)
+                    ? "today"
+                    : ""
+                }
+                ${day == dClickedDay && doubleClicked ? "db" : ""}
+                `}
               >
                 {day}
               </div>

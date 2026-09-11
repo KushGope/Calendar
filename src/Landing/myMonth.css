@@ -109,11 +109,21 @@
 
 /* Modifiers applied programmatically */
 .day-cell.active-day {
-  background-color: #fff;
+  background-color: #ffffff;
   border: 1px solid #e0e0e0;
 }
 
 .day-cell.empty-pad {
   background-color: transparent;
   border: none;
+}
+
+.day-cell.today {
+  background-color: #3fe3d8;
+  border: 1px solid #e0e0e0;
+}
+
+.day-cell.db {
+  background-color: #fc2ac0;
+  border: 1px solid #e0e0e0;
 }
